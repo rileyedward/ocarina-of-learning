@@ -1,0 +1,103 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/fraunces';
+@import '@fontsource/karla/400.css';
+@import '@fontsource/karla/700.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+
+@theme {
+  --color-ink: #0f1518;
+  --color-stone: #1b272b;
+  --color-glaze: #3e7ca6;
+  --color-gold: #c9a227;
+  --color-kokiri: #5e9e63;
+  --color-parchment: #e6e0ce;
+  --color-parchment-dim: #9aa39b;
+
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Karla', system-ui, sans-serif;
+  --font-note: 'Space Grotesk', system-ui, sans-serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-parchment);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Ceramic, not bubblegum: small radii everywhere. */
+  button,
+  input,
+  select,
+  textarea {
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-glaze);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Cards size from a single custom property so one control drives everything. */
+  .card-scale {
+    --card-size: 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* The reference chart should print well on white paper. */
+@media print {
+  /* Repaint the palette for paper. Diagrams consume these vars, so they follow. */
+  :root {
+    color-scheme: light;
+    --color-ink: #ffffff;
+    --color-stone: #ffffff;
+    --color-glaze: #2f5f80;
+    --color-gold: #8a6d0b;
+    --color-parchment: #111111;
+    --color-parchment-dim: #555555;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-surface {
+    background: #fff !important;
+    border-color: #999 !important;
+    color: #000 !important;
+  }
+
+  .print-break-avoid {
+    break-inside: avoid;
+  }
+}
