@@ -57,6 +57,7 @@ function movePhrase(index: number, delta: number) {
   const target = index + delta
   if (target < 0 || target >= song.value.phrases.length) return
   const [phrase] = song.value.phrases.splice(index, 1)
+  if (!phrase) return
   song.value.phrases.splice(target, 0, phrase)
   edited()
 }

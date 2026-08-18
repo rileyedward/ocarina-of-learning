@@ -1,26 +1,33 @@
 // @vitest-environment happy-dom
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { createRouter, createWebHistory } from 'vue-router'
-import App from '@/App.vue'
-import { router as appRouter } from '@/router'
+import { RouterView, createRouter, createWebHistory } from 'vue-router'
 
 /**
- * Smoke tests: mount every screen through the real router. Templates are only
+ * Smoke tests: mount every screen through a real router. Templates are only
  * compiled, not executed, by the build — these catch what a build would miss.
+ *
+ * The table below mirrors what Nuxt derives from `app/pages/`. Add a page,
+ * add a line. Pages load lazily, as Nuxt loads them, so a page and the test
+ * share one instance of the composables after `vi.resetModules()`.
  */
+const ROUTES = [
+  { path: '/', component: () => import('@/pages/index.vue') },
+  { path: '/reference', component: () => import('@/pages/reference.vue') },
+  { path: '/scales', component: () => import('@/pages/scales/index.vue') },
+  { path: '/scales/:id', component: () => import('@/pages/scales/[id].vue') },
+  { path: '/song/new', component: () => import('@/pages/song/new.vue') },
+  { path: '/song/:id', component: () => import('@/pages/song/[id]/index.vue') },
+  { path: '/song/:id/edit', component: () => import('@/pages/song/[id]/edit.vue') },
+]
+
 async function visit(path: string) {
-  const router = createRouter({
-    history: createWebHistory(),
-    routes: appRouter
-      .getRoutes()
-      .flatMap((r) => (r.components?.default ? [{ path: r.path, component: r.components.default }] : [])),
-  })
+  const router = createRouter({ history: createWebHistory(), routes: ROUTES })
   await router.push(path)
   await router.isReady()
 
   const errors: unknown[] = []
-  const wrapper = mount(App, {
+  const wrapper = mount(RouterView, {
     global: {
       plugins: [router],
       config: { errorHandler: (error: unknown) => errors.push(error) },

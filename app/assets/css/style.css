@@ -6,6 +6,9 @@
 @import '@fontsource/space-grotesk/500.css';
 @import '@fontsource/space-grotesk/700.css';
 
+/* Nuxt builds from app/; point Tailwind's scanner at that whole tree. */
+@source '../../';
+
 @theme {
   --color-ink: #0f1518;
   --color-stone: #1b272b;

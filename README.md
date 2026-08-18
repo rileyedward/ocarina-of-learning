@@ -11,8 +11,8 @@ It does three things: shows the fingering for all 21 notes the instrument can
 play, shows pre-built scale runs for warm-ups, and shows songs you have built
 out of short phrases, a few phrases at a time, while you hold the instrument.
 
-Everything runs in the browser from a single Vite process. There is no backend,
-no database, and no account.
+Everything runs in the browser. Nuxt ships it as a client-only SPA — there is
+no backend, no database, and no account.
 
 ### Why Use Ocarina Practice?
 
@@ -47,7 +47,7 @@ works for learning four notes and for running the whole piece.
 Ensure you have the following prerequisites installed on your system. You can
 verify each installation by running the provided commands in your terminal.
 
-1. **Node** (20.19+) and **NPM** (Node Package Manager) are needed for the
+1. **Node** (22.19+ or 24.11+) and **NPM** (Node Package Manager) are needed for the
    application and its dependencies. Check their installations with:
 
     ```bash
@@ -75,7 +75,7 @@ service to start.
 3. Open it in your browser:
 
     ```
-    http://localhost:5173
+    http://localhost:3000
     ```
 
 On first run the library seeds itself: one fully populated public-domain song
@@ -134,7 +134,7 @@ implies they are on the front.
 ## Data
 
 The library lives in `localStorage` under `ocarina.library.v1` and is seeded on
-first run from `src/data/`. Seeding is idempotent — an existing library is used
+first run from `app/data/`. Seeding is idempotent — an existing library is used
 as-is and never merged into or overwritten.
 
 Because that is one cleared cache away from gone:
@@ -154,13 +154,13 @@ preference, not library data.
 
 ## Fingering Data
 
-`src/data/fingerings.ts` holds the authoritative table for the common 12-hole
+`app/data/fingerings.ts` holds the authoritative table for the common 12-hole
 alto C system — 21 notes, A4 to F6, fully chromatic. It is reference data, not
 user data, and is never editable in the app.
 
 Fingerings are composed from named constants (`HOME`, `LH4`, `THUMBS`) rather
 than typed out twenty-one times, so the table can be read against a published
-chart line by line. `src/data/fingerings.test.ts` checks it against a separate
+chart line by line. `tests/fingerings.test.ts` checks it against a separate
 transcription of that chart, so a typo cannot agree with itself.
 
 Accidentals are cross-fingerings and vary by maker. C♯6 and D♯6 in particular —
@@ -171,7 +171,8 @@ that one.**
 ## Testing
 
 ```bash
-npm test
+npm test        # vitest, mounts every page as a plain Vue component
+npm run typecheck
 ```
 
 Covers the fingering table, the storage layer's seeding, autosave, and
@@ -180,21 +181,30 @@ paging, the naturals filter, and the picker appending into the focused phrase.
 
 ## Tech Stack
 
-- **Vue 3** + **TypeScript** — frontend, Composition API with `<script setup>`
-- **Vite** — build and dev server
+- **Nuxt 4** (`ssr: false`) + **Vue 3** + **TypeScript** — Composition API with
+  `<script setup>`, file-based routes under `app/pages/`
 - **Tailwind CSS v4** — styling, palette as `@theme` tokens
-- **Vue Router** — the handful of views
 - **localStorage** — persistence, no backend
 - **Vitest** + **@vue/test-utils** — testing
 
 State is a single module-scope reactive store in
-`src/composables/useLibrary.ts`. There is no Pinia; one store with no
+`app/composables/useLibrary.ts`. There is no Pinia; one store with no
 cross-store dependencies does not need it.
 
-The fingering diagram is hand-written SVG (`src/components/FingeringDiagram.vue`)
+The fingering diagram is hand-written SVG (`app/components/FingeringDiagram.vue`)
 sized entirely from its `viewBox`, so the same component serves as a 52px chip
 in the editor, a 60px glyph in the picker, and a 340px practice card. There is no component library — the diagram is
 the centerpiece and a component kit would not help draw it.
+
+## Deployment
+
+Built for Laravel Cloud's Nuxt runtime. See [DEPLOY.md](DEPLOY.md) for the
+exact runtime, build command, and mode to select.
+
+```bash
+npm run build   # .output/server/index.mjs — Nitro node-server
+npm start       # serve that build locally
+```
 
 ## Scope
 
