@@ -53,10 +53,10 @@ async function applyImport(mode: ImportMode) {
 <template>
   <AppNav />
 
-  <main class="mx-auto max-w-[900px] px-6 py-8">
+  <main class="mx-auto max-w-[900px] px-4 py-6 md:px-6 md:py-8">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="font-display text-3xl text-parchment">Songs</h1>
+        <h1 class="font-display text-2xl text-parchment md:text-3xl">Songs</h1>
         <p class="mt-1 text-sm text-parchment-dim">Most recently edited first.</p>
       </div>
 
@@ -75,17 +75,17 @@ async function applyImport(mode: ImportMode) {
         :key="song.id"
         class="rounded-sm border border-white/5 bg-stone transition-colors hover:border-glaze/40"
       >
-        <div class="flex items-center gap-4 px-4 py-3">
-          <RouterLink :to="`/song/${song.id}`" class="min-w-0 flex-1">
+        <div class="flex flex-col items-start gap-2 px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
+          <RouterLink :to="`/song/${song.id}`" class="w-full min-w-0 flex-1">
             <div class="truncate font-display text-lg text-parchment">{{ song.title }}</div>
-            <div class="truncate text-sm text-parchment-dim">
+            <div class="text-sm text-parchment-dim sm:truncate">
               <span v-if="song.subtitle">{{ song.subtitle }} · </span>
               {{ song.phrases.length }} phrase{{ song.phrases.length === 1 ? '' : 's' }} ·
               {{ noteCount(song) }} note{{ noteCount(song) === 1 ? '' : 's' }}
             </div>
           </RouterLink>
 
-          <div v-if="pendingDelete === song.id" class="flex items-center gap-2 text-sm">
+          <div v-if="pendingDelete === song.id" class="flex flex-wrap items-center gap-2 text-sm sm:shrink-0">
             <span class="text-parchment-dim">Delete for good?</span>
             <button
               type="button"
@@ -103,23 +103,23 @@ async function applyImport(mode: ImportMode) {
             </button>
           </div>
 
-          <div v-else class="flex items-center gap-1 text-sm">
+          <div v-else class="flex items-center gap-1 text-sm sm:shrink-0">
             <RouterLink
               :to="`/song/${song.id}/edit`"
-              class="px-2 py-1 text-parchment-dim hover:text-parchment"
+              class="min-h-11 px-3 py-2 text-parchment-dim hover:text-parchment sm:min-h-0 sm:px-2 sm:py-1"
             >
               Edit
             </RouterLink>
             <button
               type="button"
-              class="px-2 py-1 text-parchment-dim hover:text-parchment"
+              class="min-h-11 px-3 py-2 text-parchment-dim hover:text-parchment sm:min-h-0 sm:px-2 sm:py-1"
               @click="duplicateSong(song.id)"
             >
               Duplicate
             </button>
             <button
               type="button"
-              class="px-2 py-1 text-parchment-dim hover:text-parchment"
+              class="min-h-11 px-3 py-2 text-parchment-dim hover:text-parchment sm:min-h-0 sm:px-2 sm:py-1"
               @click="pendingDelete = song.id"
             >
               Delete

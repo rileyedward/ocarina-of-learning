@@ -21,6 +21,11 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'en' },
       title: 'Ocarina Practice',
+      /* viewport-fit=cover so the editor's picker can clear the home bar. */
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
+        { name: 'theme-color', content: '#0f1518' },
+      ],
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/ocarina.svg' }],
     },
   },

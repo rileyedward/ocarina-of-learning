@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import AppNav from '@/components/AppNav.vue'
 import FingeringCard from '@/components/FingeringCard.vue'
-import { findSong, readDensity, writeDensity } from '@/composables/useLibrary'
+import { findSong, readCols, readDensity, writeCols, writeDensity } from '@/composables/useLibrary'
 
 const route = useRoute()
 const songId = computed(() => String(route.params.id))
@@ -18,7 +18,14 @@ const DENSITIES = [
   { value: 0, label: 'All', cardSize: '110px' },
 ]
 
+/**
+ * On a phone a card size in pixels means nothing — what matters is how many
+ * fingerings fit across the screen. Below `md` this drives the grid instead.
+ */
+const COLS = [2, 3, 4, 5, 6]
+
 const density = ref(readDensity(songId.value) ?? 2)
+const cols = ref(readCols(songId.value) ?? 3)
 const page = ref(0)
 const chromeless = ref(false)
 
@@ -51,8 +58,34 @@ function setDensity(value: number) {
   page.value = value === 0 ? 0 : Math.floor(firstVisible / value)
 }
 
+function setCols(value: number) {
+  cols.value = value
+  writeCols(songId.value, value)
+}
+
 function step(delta: number) {
   page.value = Math.min(pageCount.value - 1, Math.max(0, page.value + delta))
+}
+
+/** Swipe across the notes to turn the page — the touch equivalent of ← / →. */
+const touchStart = ref<{ x: number; y: number } | null>(null)
+
+function onTouchStart(event: TouchEvent) {
+  const touch = event.changedTouches[0]
+  touchStart.value = touch ? { x: touch.clientX, y: touch.clientY } : null
+}
+
+function onTouchEnd(event: TouchEvent) {
+  const start = touchStart.value
+  const touch = event.changedTouches[0]
+  touchStart.value = null
+  if (!start || !touch) return
+
+  const dx = touch.clientX - start.x
+  const dy = touch.clientY - start.y
+  // Mostly-horizontal and long enough that it cannot be a scroll.
+  if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return
+  step(dx < 0 ? 1 : -1)
 }
 
 function toggleChromeless() {
@@ -101,79 +134,157 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 <template>
   <AppNav v-if="!chromeless" />
 
-  <main v-if="song" class="mx-auto max-w-[1600px] px-6 py-6">
-    <div v-if="!chromeless" class="flex flex-wrap items-end justify-between gap-4">
+  <main v-if="song" class="tight-landscape mx-auto max-w-[1600px] px-4 py-4 md:px-6 md:py-6">
+    <div
+      v-if="!chromeless"
+      class="md:flex md:flex-wrap md:items-end md:justify-between md:gap-4"
+    >
       <div class="min-w-0">
-        <RouterLink to="/" class="text-sm text-parchment-dim hover:text-parchment">
+        <!-- Sideways on a phone the nav is right there; this line is pure cost. -->
+        <RouterLink
+          to="/"
+          class="tight-landscape-hide text-sm text-parchment-dim hover:text-parchment"
+        >
           ← All songs
         </RouterLink>
-        <h1 class="mt-1 truncate font-display text-3xl text-parchment">{{ song.title }}</h1>
-        <p v-if="song.subtitle" class="mt-1 truncate text-sm text-parchment-dim">
+        <h1 class="tight-landscape-title mt-1 truncate font-display text-2xl text-parchment md:text-3xl">
+          {{ song.title }}
+        </h1>
+        <p
+          v-if="song.subtitle"
+          class="tight-landscape-hide mt-1 truncate text-sm text-parchment-dim"
+        >
           {{ song.subtitle }}
         </p>
       </div>
 
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-xs tracking-wider text-parchment-dim uppercase">Phrases shown</span>
-          <div class="flex items-center gap-1 rounded-sm border border-white/10 p-1">
-            <button
-              v-for="option in DENSITIES"
-              :key="option.value"
-              type="button"
-              class="rounded-xs px-3 py-1 text-sm transition-colors"
-              :class="
-                density === option.value
-                  ? 'bg-gold/20 text-parchment'
-                  : 'text-parchment-dim hover:text-parchment'
-              "
-              :aria-pressed="density === option.value"
-              @click="setDensity(option.value)"
-            >
-              {{ option.label }}
-            </button>
+      <!--
+        Controls stay put on a phone: density, zoom and page are always a thumb
+        away. At `md` the wrapper dissolves (`display: contents`) so the controls
+        sit back in the title row exactly as they always have.
+      -->
+      <div
+        class="tight-landscape sticky top-0 z-10 -mx-4 mt-3 bg-ink/95 px-4 py-1.5 backdrop-blur md:contents"
+      >
+        <div class="tight-landscape-controls flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+          <div class="flex shrink-0 items-center gap-2">
+            <span class="tight-landscape-hide text-xs tracking-wider text-parchment-dim uppercase">
+              Phrases
+            </span>
+            <div class="flex items-center gap-1 rounded-sm border border-white/10 p-1">
+              <button
+                v-for="option in DENSITIES"
+                :key="option.value"
+                type="button"
+                class="min-h-10 rounded-xs px-3 py-1 text-sm transition-colors md:min-h-0"
+                :class="
+                  density === option.value
+                    ? 'bg-gold/20 text-parchment'
+                    : 'text-parchment-dim hover:text-parchment'
+                "
+                :aria-pressed="density === option.value"
+                :aria-label="
+                  option.value === 0 ? 'All phrases on one page' : `${option.value} phrases per page`
+                "
+                @click="setDensity(option.value)"
+              >
+                {{ option.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Second line on a phone; at `md` it dissolves back into the row. -->
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-1 md:contents">
+            <!-- Card width in pixels is a desktop idea; on a phone you pick columns. -->
+            <div class="grid-mode-only shrink-0 items-center gap-2">
+              <span
+                class="tight-landscape-hide text-xs tracking-wider text-parchment-dim uppercase"
+              >
+                Per row
+              </span>
+              <div class="flex items-center gap-1 rounded-sm border border-white/10 p-1">
+                <button
+                  v-for="option in COLS"
+                  :key="`cols-${option}`"
+                  type="button"
+                  class="min-h-10 rounded-xs px-2.5 py-1 text-sm transition-colors"
+                  :class="
+                    cols === option
+                      ? 'bg-glaze/25 text-parchment'
+                      : 'text-parchment-dim hover:text-parchment'
+                  "
+                  :aria-pressed="cols === option"
+                  :aria-label="`${option} fingerings per row`"
+                  @click="setCols(option)"
+                >
+                  {{ option }}
+                </button>
+              </div>
+            </div>
+
+            <div class="ml-auto flex items-center gap-1 md:ml-0 md:gap-4">
+              <RouterLink
+                :to="`/song/${song.id}/edit`"
+                class="px-3 py-2 text-sm text-parchment-dim hover:text-parchment"
+              >
+                Edit
+              </RouterLink>
+
+              <button
+                type="button"
+                class="px-3 py-2 text-sm text-parchment-dim hover:text-parchment"
+                @click="toggleChromeless"
+              >
+                Fullscreen<span class="hidden md:inline"> (f)</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <RouterLink
-          :to="`/song/${song.id}/edit`"
-          class="px-3 py-2 text-sm text-parchment-dim hover:text-parchment"
+        <div
+          v-if="paginated"
+          class="mt-2 flex items-center gap-3 text-sm text-parchment-dim md:mt-4 md:w-full"
         >
-          Edit
-        </RouterLink>
-
-        <button
-          type="button"
-          class="px-3 py-2 text-sm text-parchment-dim hover:text-parchment"
-          @click="toggleChromeless"
-        >
-          Fullscreen (f)
-        </button>
+          <button type="button" class="px-3 py-2 hover:text-parchment md:px-2 md:py-1" @click="step(-1)">
+            ←
+          </button>
+          <span>Page {{ page + 1 }} of {{ pageCount }}</span>
+          <button type="button" class="px-3 py-2 hover:text-parchment md:px-2 md:py-1" @click="step(1)">
+            →
+          </button>
+          <span class="tight-landscape-hide hidden text-parchment-dim/60 md:inline">
+            ← → or j / k
+          </span>
+          <span class="text-parchment-dim/60 md:hidden">or swipe</span>
+        </div>
       </div>
     </div>
 
     <div
-      v-if="paginated"
-      class="mt-4 flex items-center gap-3 text-sm text-parchment-dim"
-      :class="{ 'opacity-40': chromeless }"
+      v-else-if="paginated"
+      class="mt-4 flex items-center gap-3 text-sm text-parchment-dim opacity-40"
     >
-      <button type="button" class="px-2 py-1 hover:text-parchment" @click="step(-1)">←</button>
+      <button type="button" class="px-3 py-2 hover:text-parchment" @click="step(-1)">←</button>
       <span>Page {{ page + 1 }} of {{ pageCount }}</span>
-      <button type="button" class="px-2 py-1 hover:text-parchment" @click="step(1)">→</button>
-      <span class="text-parchment-dim/60">← → or j / k</span>
+      <button type="button" class="px-3 py-2 hover:text-parchment" @click="step(1)">→</button>
     </div>
 
-    <section class="mt-6 flex flex-col gap-8" :style="{ '--card-size': cardSize }">
+    <section
+      class="tight-landscape-gap mt-4 flex flex-col gap-8 md:mt-6"
+      :style="{ '--card-size': cardSize, '--card-cols': cols }"
+      @touchstart.passive="onTouchStart"
+      @touchend.passive="onTouchEnd"
+    >
       <article
         v-for="entry in visible"
         :key="entry.phrase.id"
-        class="border-l-2 border-glaze/40 pl-4"
+        class="border-l-2 border-glaze/40 pl-3 md:pl-4"
       >
         <h2 class="mb-2 text-xs tracking-widest text-parchment-dim uppercase">
           {{ entry.phrase.label || `Phrase ${entry.index + 1}` }}
         </h2>
 
-        <div v-if="entry.phrase.notes.length" class="flex flex-wrap gap-3">
+        <div v-if="entry.phrase.notes.length" class="note-grid">
           <FingeringCard
             v-for="(noteId, i) in entry.phrase.notes"
             :key="`${entry.phrase.id}-${i}`"
@@ -192,14 +303,14 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
     <button
       v-if="chromeless"
       type="button"
-      class="fixed right-4 bottom-4 rounded-sm border border-white/10 px-3 py-2 text-xs text-parchment-dim hover:text-parchment"
+      class="fixed right-4 bottom-4 rounded-sm border border-white/10 bg-ink/90 px-4 py-3 text-xs text-parchment-dim hover:text-parchment"
       @click="toggleChromeless"
     >
-      Exit fullscreen (esc)
+      Exit fullscreen<span class="hidden md:inline"> (esc)</span>
     </button>
   </main>
 
-  <main v-else class="mx-auto max-w-[900px] px-6 py-8">
+  <main v-else class="mx-auto max-w-[900px] px-4 py-8 md:px-6">
     <p class="text-parchment-dim">
       That song is gone.
       <RouterLink to="/" class="text-glaze underline">Back to the library</RouterLink>

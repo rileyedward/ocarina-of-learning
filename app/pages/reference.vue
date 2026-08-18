@@ -16,10 +16,10 @@ const notes = computed(() =>
 <template>
   <AppNav />
 
-  <main class="mx-auto max-w-[1500px] px-6 py-8">
+  <main class="mx-auto max-w-[1500px] px-4 py-6 md:px-6 md:py-8">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="font-display text-3xl text-parchment">Fingering reference</h1>
+        <h1 class="font-display text-2xl text-parchment md:text-3xl">Fingering reference</h1>
         <p class="mt-1 text-sm text-parchment-dim">
           12-hole alto C ocarina · 21 notes, A4 to F6 · gold means covered
         </p>
@@ -30,7 +30,7 @@ const notes = computed(() =>
           v-for="option in (['all', 'naturals'] as Filter[])"
           :key="option"
           type="button"
-          class="rounded-xs px-3 py-1.5 text-sm transition-colors"
+          class="min-h-11 rounded-xs px-3 py-1.5 text-sm transition-colors md:min-h-0"
           :class="
             filter === option
               ? 'bg-glaze/20 text-parchment'
@@ -53,8 +53,8 @@ const notes = computed(() =>
     </p>
 
     <div
-      class="mt-8 flex flex-wrap gap-4"
-      :style="{ '--card-size': '190px' }"
+      class="note-grid mt-8"
+      :style="{ '--card-size': '190px', '--card-cols': 2, '--card-gap': '1rem' }"
     >
       <FingeringCard v-for="note in notes" :key="note.id" :note="note.id" show-caveat />
     </div>

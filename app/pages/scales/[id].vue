@@ -17,21 +17,24 @@ const cardSize = computed(() => {
   if (count > 10) return '175px'
   return '200px'
 })
+
+/** The same idea on a phone, where columns matter and pixel widths do not. */
+const cols = computed(() => ((scale.value?.notes.length ?? 0) > 10 ? 4 : 3))
 </script>
 
 <template>
   <AppNav />
 
-  <main class="mx-auto max-w-[1500px] px-6 py-8">
+  <main class="mx-auto max-w-[1500px] px-4 py-6 md:px-6 md:py-8">
     <template v-if="scale">
       <RouterLink to="/scales" class="text-sm text-parchment-dim hover:text-parchment">
         ← All scales
       </RouterLink>
 
-      <h1 class="mt-2 font-display text-3xl text-parchment">{{ scale.name }}</h1>
+      <h1 class="mt-2 font-display text-2xl text-parchment md:text-3xl">{{ scale.name }}</h1>
       <p class="mt-1 text-sm text-parchment-dim">{{ scale.notes.length }} notes, low to high</p>
 
-      <div class="mt-8 flex flex-wrap gap-3" :style="{ '--card-size': cardSize }">
+      <div class="note-grid mt-8" :style="{ '--card-size': cardSize, '--card-cols': cols }">
         <FingeringCard v-for="(id, i) in scale.notes" :key="`${id}-${i}`" :note="id" />
       </div>
     </template>

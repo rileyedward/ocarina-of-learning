@@ -3,6 +3,7 @@ import { SEED_SCALES } from '@/data/scales'
 import { SEED_SONGS } from '@/data/songs'
 import {
   LIBRARY_KEY,
+  colsKey,
   densityKey,
   parseLibraryJson,
   readRaw,
@@ -172,6 +173,18 @@ export function readDensity(songId: string): number | null {
 
 export function writeDensity(songId: string, density: number): void {
   writeRaw(densityKey(songId), String(density))
+}
+
+/** Cards per row on narrow screens. Same deal: a view preference, per song. */
+export function readCols(songId: string): number | null {
+  const raw = readRaw(colsKey(songId))
+  if (raw === null) return null
+  const value = Number(raw)
+  return Number.isFinite(value) ? value : null
+}
+
+export function writeCols(songId: string, cols: number): void {
+  writeRaw(colsKey(songId), String(cols))
 }
 
 export function useLibrary() {

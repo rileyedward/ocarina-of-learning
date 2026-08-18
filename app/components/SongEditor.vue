@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import AppNav from '@/components/AppNav.vue'
 import FingeringDiagram from '@/components/FingeringDiagram.vue'
@@ -28,6 +28,16 @@ const focusedPhrase = computed(() =>
 )
 
 const phraseListRef = ref<HTMLElement | null>(null)
+
+/**
+ * The picker is fixed to the bottom, so the page has to reserve exactly its
+ * height — and that height changes with the viewport and with the sheet being
+ * open or shut. Measure it rather than guess.
+ */
+const pickerOpen = ref(false)
+const pickerRef = ref<HTMLElement | null>(null)
+const pickerHeight = ref(0)
+let pickerObserver: ResizeObserver | null = null
 
 function edited() {
   if (song.value) touch(song.value)
@@ -98,15 +108,37 @@ watch(focusedPhraseId, async (id) => {
     ?.scrollIntoView({ block: 'nearest' })
 })
 
-onMounted(() => window.addEventListener('keydown', onKeydown))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
+function measurePicker() {
+  pickerHeight.value = pickerRef.value?.getBoundingClientRect().height ?? 0
+}
+
+// Opening the sheet changes the height; so does rotating the phone.
+watch(pickerOpen, () => void nextTick(measurePicker))
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+  window.addEventListener('resize', measurePicker)
+  measurePicker()
+  if (typeof ResizeObserver === 'undefined' || !pickerRef.value) return
+  pickerObserver = new ResizeObserver(measurePicker)
+  pickerObserver.observe(pickerRef.value)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('resize', measurePicker)
+  pickerObserver?.disconnect()
+})
 </script>
 
 <template>
   <AppNav />
 
   <template v-if="song">
-    <main class="mx-auto max-w-[1100px] px-6 pt-6 pb-[290px]">
+    <main
+      class="mx-auto max-w-[1100px] px-4 pt-6 md:px-6"
+      :style="{ paddingBottom: `${pickerHeight + 24}px` }"
+    >
       <div class="flex items-center justify-between gap-4">
         <RouterLink to="/" class="text-sm text-parchment-dim hover:text-parchment">
           ← All songs
@@ -125,7 +157,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           v-model="song.title"
           type="text"
           placeholder="Song title"
-          class="w-full border-b border-white/10 bg-transparent pb-1 font-display text-3xl text-parchment placeholder:text-parchment-dim/50 focus:border-glaze focus:outline-none"
+          class="w-full border-b border-white/10 bg-transparent pb-1 font-display text-2xl text-parchment md:text-3xl placeholder:text-parchment-dim/50 focus:border-glaze focus:outline-none"
           @input="edited"
         />
         <input
@@ -239,10 +271,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
     </main>
 
     <!-- C. Note picker: fixed, so "add phrase" never scrolls it away. -->
-    <div class="fixed inset-x-0 bottom-0 border-t border-white/10 bg-ink/95 backdrop-blur">
-      <div class="mx-auto max-w-[1100px] px-6 py-3">
+    <div
+      ref="pickerRef"
+      class="fixed inset-x-0 bottom-0 border-t border-white/10 bg-ink/95 pb-[env(safe-area-inset-bottom)] backdrop-blur"
+    >
+      <div class="mx-auto max-w-[1100px] px-4 py-3 md:px-6">
         <div class="mb-2 flex items-baseline justify-between gap-4 text-xs">
-          <span class="tracking-widest text-parchment-dim uppercase">
+          <span class="min-w-0 truncate tracking-widest text-parchment-dim uppercase">
             Adding to:
             <span class="text-gold">
               {{
@@ -253,17 +288,33 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
               }}
             </span>
           </span>
-          <span class="text-parchment-dim/70">
+          <span class="hidden text-parchment-dim/70 md:inline">
             Click a note to append · click a note in a phrase to remove it · backspace drops the last
           </span>
+
+          <!-- Phones get one scrollable row; the whole board is a tap away. -->
+          <button
+            type="button"
+            class="shrink-0 px-2 py-1 whitespace-nowrap text-parchment-dim hover:text-parchment md:hidden"
+            :aria-expanded="pickerOpen"
+            @click="pickerOpen = !pickerOpen"
+          >
+            {{ pickerOpen ? 'Fewer notes ▾' : 'All notes ▴' }}
+          </button>
         </div>
 
-        <NotePicker :disabled="!focusedPhrase" @pick="appendNote" />
+        <div :class="pickerOpen ? 'max-h-[45vh] overflow-y-auto md:max-h-none md:overflow-visible' : ''">
+          <NotePicker
+            :disabled="!focusedPhrase"
+            :layout="pickerOpen ? 'grid' : 'row'"
+            @pick="appendNote"
+          />
+        </div>
       </div>
     </div>
   </template>
 
-  <main v-else class="mx-auto max-w-[900px] px-6 py-8">
+  <main v-else class="mx-auto max-w-[900px] px-4 py-8 md:px-6">
     <p class="text-parchment-dim">
       That song is gone.
       <RouterLink to="/" class="text-glaze underline">Back to the library</RouterLink>

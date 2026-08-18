@@ -85,6 +85,21 @@ describe('screens render', () => {
     expect(wrapper.findAll('figure')).toHaveLength(42)
   })
 
+  it('practice view scales cards by cards-per-row and remembers it', async () => {
+    const wrapper = await visit('/song/seed-twinkle')
+
+    const section = wrapper.find<HTMLElement>('[style*="--card-cols"]')
+    expect(section.attributes('style')).toContain('--card-cols: 3')
+
+    const perRow = wrapper
+      .findAll('button')
+      .find((b) => b.attributes('aria-label') === '6 fingerings per row')
+    await perRow?.trigger('click')
+
+    expect(wrapper.find('[style*="--card-cols"]').attributes('style')).toContain('--card-cols: 6')
+    expect(localStorage.getItem('ocarina.cols.seed-twinkle')).toBe('6')
+  })
+
   it('editor appends picked notes to the focused phrase', async () => {
     const wrapper = await visit('/song/seed-oot-1/edit')
     const titleInput = wrapper.find<HTMLInputElement>('input[placeholder="Song title"]')

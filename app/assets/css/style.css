@@ -56,12 +56,89 @@
     outline: 2px solid var(--color-glaze);
     outline-offset: 2px;
   }
+
+  /* Phones: no zoom-on-rotate reflow, no grey flash on tap. */
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer components {
   /* Cards size from a single custom property so one control drives everything. */
   .card-scale {
     --card-size: 180px;
+  }
+
+  /*
+   * Rows of fingering cards. Wide screens wrap fixed-width cards, exactly as
+   * they always have. Narrow screens switch to a fixed column count so the
+   * cards divide the viewport instead of overflowing it — `--card-cols` is the
+   * mobile counterpart of `--card-size`.
+   */
+  .note-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--card-gap, 0.75rem);
+  }
+
+  /*
+   * Column mode: narrow screens, and a phone held sideways — anywhere a card
+   * width in pixels stops meaning anything useful.
+   */
+  @media (max-width: 47.99rem), (max-height: 30rem) and (orientation: landscape) {
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--card-cols, 3), minmax(0, 1fr));
+    }
+  }
+
+}
+
+/*
+ * A phone held sideways has width to spare and almost no height. Give the
+ * vertical chrome back to the notes. Unlayered on purpose: these have to
+ * outrank the Tailwind padding utilities they are trimming.
+ */
+/* The cards-per-row control only exists where column mode is in charge. */
+.grid-mode-only {
+  display: none;
+}
+
+@media (max-width: 47.99rem), (max-height: 30rem) and (orientation: landscape) {
+  .grid-mode-only {
+    display: flex;
+  }
+}
+
+@media (max-height: 30rem) and (orientation: landscape) {
+  .tight-landscape {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .tight-landscape-gap {
+    gap: 1.25rem;
+  }
+
+  .tight-landscape-hide {
+    display: none;
+  }
+
+  /* Sideways, the control buttons trade thumb-sized padding for screen space. */
+  .tight-landscape-controls button {
+    min-height: 0;
+    padding-block: 0.15rem;
+    padding-inline: 0.5rem;
+  }
+
+  .tight-landscape-title {
+    font-size: 1.35rem;
+    line-height: 1.15;
   }
 }
 

@@ -3,6 +3,7 @@ import type { Library, Phrase, Song } from '@/types'
 
 export const LIBRARY_KEY = 'ocarina.library.v1'
 export const densityKey = (songId: string) => `ocarina.density.${songId}`
+export const colsKey = (songId: string) => `ocarina.cols.${songId}`
 
 /** localStorage is one cleared cache away from gone; every read is defensive. */
 export function readRaw(key: string): string | null {

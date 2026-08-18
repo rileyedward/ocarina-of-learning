@@ -10,15 +10,15 @@ const { library } = useLibrary()
 <template>
   <AppNav />
 
-  <main class="mx-auto max-w-[900px] px-6 py-8">
-    <h1 class="font-display text-3xl text-parchment">Scales</h1>
+  <main class="mx-auto max-w-[900px] px-4 py-6 md:px-6 md:py-8">
+    <h1 class="font-display text-2xl text-parchment md:text-3xl">Scales</h1>
     <p class="mt-1 text-sm text-parchment-dim">Warm-ups and dexterity runs, whole run on one screen.</p>
 
     <ul class="mt-8 flex flex-col gap-2">
       <li v-for="scale in library.scales" :key="scale.id">
         <RouterLink
           :to="`/scales/${scale.id}`"
-          class="flex items-baseline justify-between gap-6 rounded-sm border border-white/5 bg-stone px-4 py-3 transition-colors hover:border-glaze/50"
+          class="flex flex-col gap-1 rounded-sm border border-white/5 bg-stone px-4 py-3 transition-colors hover:border-glaze/50 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
         >
           <span class="font-display text-lg text-parchment">{{ scale.name }}</span>
           <span class="truncate font-note text-sm text-parchment-dim">

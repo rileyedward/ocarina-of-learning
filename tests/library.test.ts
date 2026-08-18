@@ -106,3 +106,27 @@ describe('library persistence', () => {
     expect(parseLibraryJson('nonsense')).toBeNull()
   })
 })
+
+describe('per-song view preferences', () => {
+  it('round-trips density and cards-per-row separately from the library', async () => {
+    const { readCols, readDensity, writeCols, writeDensity } = await loadStore()
+
+    expect(readDensity('seed-twinkle')).toBeNull()
+    expect(readCols('seed-twinkle')).toBeNull()
+
+    writeDensity('seed-twinkle', 4)
+    writeCols('seed-twinkle', 5)
+
+    expect(localStorage.getItem('ocarina.cols.seed-twinkle')).toBe('5')
+    expect(readDensity('seed-twinkle')).toBe(4)
+    expect(readCols('seed-twinkle')).toBe(5)
+    // Another song keeps its own zoom.
+    expect(readCols('seed-oot-1')).toBeNull()
+  })
+
+  it('falls back to the default when the stored value is junk', async () => {
+    localStorage.setItem('ocarina.cols.seed-twinkle', 'wide please')
+    const { readCols } = await loadStore()
+    expect(readCols('seed-twinkle')).toBeNull()
+  })
+})
