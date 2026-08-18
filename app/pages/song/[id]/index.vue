@@ -88,8 +88,14 @@ function onTouchEnd(event: TouchEvent) {
   step(dx < 0 ? 1 : -1)
 }
 
+/** No page scroll while chromeless: the swipe is the only gesture that means anything. */
+function lockScroll(locked: boolean) {
+  document.documentElement.classList.toggle('practice-locked', locked)
+}
+
 function toggleChromeless() {
   chromeless.value = !chromeless.value
+  lockScroll(chromeless.value)
   const target = document.documentElement
   if (chromeless.value && !document.fullscreenElement) {
     void target.requestFullscreen?.().catch(() => {})
@@ -127,8 +133,25 @@ watch(pageCount, (count) => {
   if (page.value > count - 1) page.value = count - 1
 })
 
-onMounted(() => window.addEventListener('keydown', onKeydown))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
+/** The browser can drop out of fullscreen on its own; don't leave the lock behind. */
+function onFullscreenChange() {
+  if (!document.fullscreenElement && chromeless.value) {
+    chromeless.value = false
+    lockScroll(false)
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+  document.addEventListener('fullscreenchange', onFullscreenChange)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('fullscreenchange', onFullscreenChange)
+  // Leaving the page while chromeless must not leave the scroll locked.
+  lockScroll(false)
+})
 </script>
 
 <template>

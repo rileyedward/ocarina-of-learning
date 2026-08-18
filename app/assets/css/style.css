@@ -104,6 +104,21 @@
  * vertical chrome back to the notes. Unlayered on purpose: these have to
  * outrank the Tailwind padding utilities they are trimming.
  */
+/*
+ * Fullscreen practice is one screenful of notes, turned by swiping. Vertical
+ * scroll only fights the gesture, so it is switched off for the duration.
+ */
+.practice-locked,
+.practice-locked body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.practice-locked body {
+  touch-action: pan-x;
+}
+
 /* The cards-per-row control only exists where column mode is in charge. */
 .grid-mode-only {
   display: none;
