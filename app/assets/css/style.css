@@ -18,6 +18,10 @@
   --color-parchment: #e6e0ce;
   --color-parchment-dim: #9aa39b;
 
+  /* The instrument body itself: kokiri knocked back into the dark palette. */
+  --color-clay: #24352b;
+  --color-clay-edge: #6f8a72;
+
   --font-display: 'Fraunces Variable', Georgia, serif;
   --font-body: 'Karla', system-ui, sans-serif;
   --font-note: 'Space Grotesk', system-ui, sans-serif;
@@ -83,6 +87,8 @@
     --color-gold: #8a6d0b;
     --color-parchment: #111111;
     --color-parchment-dim: #555555;
+    --color-clay: #d8e8d2;
+    --color-clay-edge: #2a2a2a;
   }
 
   body {
