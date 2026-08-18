@@ -5,6 +5,7 @@ const LINKS = [
   { to: '/', label: 'Songs' },
   { to: '/scales', label: 'Scales' },
   { to: '/reference', label: 'Reference' },
+  { to: '/drill', label: 'Drill' },
 ]
 </script>
 

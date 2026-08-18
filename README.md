@@ -6,10 +6,13 @@ Fingering charts and phrase-by-phrase practice for the 12-hole alto C ocarina.
 
 ### What is Ocarina Practice?
 
-Ocarina Practice is a local application for learning the 12-hole alto C ocarina.
-It does three things: shows the fingering for all 21 notes the instrument can
-play, shows pre-built scale runs for warm-ups, and shows songs you have built
-out of short phrases, a few phrases at a time, while you hold the instrument.
+Ocarina Practice is a local application for learning the ocarina — the 12-hole
+alto C by default, with 6-hole and 4-hole pendants and the soprano and bass
+alongside it. It shows the fingering for every note an instrument can play,
+pre-built scale runs for warm-ups, and songs you have built out of short
+phrases, a few phrases at a time, while you hold the instrument. It also
+drills you on the chart, and reads the chart backwards when you find a
+fingering and want to know what it is.
 
 Everything runs in the browser. Nuxt ships it as a client-only SPA — there is
 no backend, no database, and no account.
@@ -28,17 +31,40 @@ works for learning four notes and for running the whole piece.
 
 - **Complete Fingering Chart**: All 21 notes from A4 to F6, fully chromatic,
   with covered holes filled in gold against the open ones.
+- **Five Instruments**: 12-hole alto, soprano and bass C, plus 6-hole and
+  4-hole pendants. Geometry and fingerings travel together, so each one draws
+  itself. The pendant charts are community transcriptions and say so.
+- **Change Hints**: Each card marks the holes that lift and press against the
+  note before it — the part that is actually hard to play.
 - **Phrase-Based Practice**: Songs are ordered lists of short phrases — the
   chunk you actually rehearse — rather than a wall of notes.
-- **Density Control**: Show 1, 2, 4, 8, or all phrases at once. Fewer phrases
-  means larger cards; one control drives both.
+- **Density Control**: Auto, or 1, 2, 4, 8, or all phrases at once. Fewer
+  phrases means larger cards; one control drives both.
+- **Hands-Free Turning**: A wake lock keeps the screen alive, the outer edges
+  turn the page on a tap, and auto-turn advances on a timer.
 - **Distraction-Free Mode**: Hide every piece of chrome with one key while you
   play.
-- **Scale Runs**: Six seeded scales, each shown in full with no pagination.
-- **Song Editor**: Build songs by tapping notes from a picker into the focused
-  phrase. Autosaves — there is no save button.
+- **Note Values and Rests**: Optional. A song that never sets one behaves
+  exactly as songs did before they existed.
+- **Staff Notation**: The same phrase on a treble staff, hand-drawn in SVG.
+  No bar lines and no time signature — the model has no meter and the screen
+  must not imply one.
+- **Phrase Status**: Mark a phrase new, shaky or learned, and hide the learned
+  ones once they stop needing the screen.
+- **Scale Runs**: Six seeded scales, editable, plus your own — up, down, up and
+  down, or shuffled.
+- **Drill**: Flashcards from any scale, song, or the whole chart. Nothing is
+  scored and nothing is kept.
+- **Reverse Lookup**: Tap holes on a blank diagram to find out what note they
+  make.
+- **Song Editor**: Tap notes from a picker, type them as shorthand
+  (`c d e/8 r/4 bb4`), or use the keyboard. Drag to reorder phrases and to move
+  notes between them. Undo with ⌘Z. Autosaves — there is no save button.
+- **Print**: A song prints as the whole run, every phrase, on white paper.
+- **Share Links**: A link that carries the entire song in its fragment. No
+  server, no account, nothing uploaded.
 - **JSON Export and Import**: Download the whole library as one file and load it
-  back, either merging or replacing.
+  back, with a preview of exactly what a merge would replace.
 
 ## Getting Started
 
@@ -88,11 +114,14 @@ melodies, ready for you to enter from whatever arrangement you are working from.
 
 | Route | Screen | What it is for |
 |---|---|---|
-| `/` | Library | Songs by most recently edited, with import and export |
+| `/` | Library | Songs, searchable and sortable, with import and export |
 | `/song/:id` | Practice | The screen you stare at while holding the instrument |
 | `/song/:id/edit` | Editor | Build and modify a song's phrases |
+| `/song/shared` | Shared song | Previews a song that arrived in a link |
 | `/scales`, `/scales/:id` | Scales | Warm-up runs, whole run visible at once |
-| `/reference` | Reference | All 21 notes in one grid, prints well |
+| `/reference` | Reference | Every note in one grid, prints well |
+| `/reference/lookup` | Reverse lookup | Tap holes, find the note |
+| `/drill` | Drill | Flashcards, self-checked |
 
 ### Practice keys
 
@@ -100,8 +129,15 @@ melodies, ready for you to enter from whatever arrangement you are working from.
 |-----|--------|
 | `→` / `J` | Next phrase page |
 | `←` / `K` | Previous phrase page |
+| `Space` | Step the cursor on a note |
+| `S` | Practise the visible phrase alone |
+| `P` | Start or stop automatic page turns |
 | `F` | Toggle distraction-free mode |
-| `Esc` | Leave distraction-free mode |
+| `Esc` | Leave solo, then distraction-free mode, then auto-turn |
+
+In distraction-free mode the outer edges of the notes are page-turn targets, so
+a knuckle or an elbow does the job a swipe does. The screen is held awake for
+as long as the practice screen is open.
 
 The density control sets how many phrases are visible at once and, with it, how
 large the cards are. The choice is remembered per song.
@@ -114,10 +150,15 @@ says *Adding to:* by name. Then:
 | Action | How |
 |---|---|
 | Add a note | Click it in the picker; it appends to the focused phrase |
-| Remove a note | Click that note inside the phrase |
+| Add several | **Type notes**, then `c d e/8 r/4 bb4` — octave carries forward |
+| Add from the keyboard | `a`–`g` for notes, `r` for a rest, `#` sharpens the last, `↑` `↓` shift it an octave |
+| Edit a note | Click it inside the phrase: note value, dot, make it a rest, split here, remove |
 | Remove the last note | `Backspace` |
-| Add a phrase | **+ Add phrase**; the new one takes focus |
-| Reorder or delete | The arrows and `✕` on each phrase row |
+| Add a phrase | **+ Add phrase** or `Enter`; the new one takes focus |
+| Reorder | Drag the ⠿ grip, or the arrows on each phrase row |
+| Move a note between phrases | Drag the note chip onto another phrase |
+| Repeat a phrase | The `×N` box in its header |
+| Undo | `⌘Z` / `Ctrl+Z`, redo with `⇧⌘Z` |
 
 The picker is fixed to the bottom of the screen, so adding a phrase never
 scrolls it out of reach. Changes save to `localStorage` on a short debounce.
@@ -133,8 +174,10 @@ implies they are on the front.
 
 ## Data
 
-The library lives in `localStorage` under `ocarina.library.v1` and is seeded on
-first run from `app/data/`. Seeding is idempotent — an existing library is used
+The library lives in `localStorage` under `ocarina.library.v1` — schema version
+2, same key — and is seeded on first run from `app/data/`. A version 1 payload
+is read, upcast (bare note strings become `{ note }` objects) and copied aside
+to `ocarina.library.v1.backup` before anything writes over it. Seeding is idempotent — an existing library is used
 as-is and never merged into or overwritten.
 
 Because that is one cleared cache away from gone:
@@ -149,14 +192,25 @@ on import rather than thrown on, so a hand-edited file degrades instead of
 bricking the app. A stored payload that cannot be read at all is moved aside to
 `ocarina.library.corrupt.<timestamp>` rather than discarded.
 
-Per-song density lives separately under `ocarina.density.<songId>`; it is a view
-preference, not library data.
+Per-song density and columns live under `ocarina.density.<songId>` and
+`ocarina.cols.<songId>`; app-wide view preferences — notation, ♯/♭ spelling,
+default instrument, auto-turn interval — live under `ocarina.prefs.v1`. None of
+them are library data. `ocarina.export.meta` remembers when you last exported
+and how many edits have happened since, which is all the export nag is.
 
 ## Fingering Data
 
 `app/data/fingerings.ts` holds the authoritative table for the common 12-hole
 alto C system — 21 notes, A4 to F6, fully chromatic. It is reference data, not
 user data, and is never editable in the app.
+
+`app/data/instruments.ts` wraps that table together with the diagram geometry,
+and adds the other four instruments. The soprano and bass share the alto's
+fingerings exactly and differ only in the octave they sound. **The 6-hole and
+4-hole pendant tables are community transcriptions, not checked against a
+published chart** — they are marked `verified: false` and the reference screen
+says so above the grid. Pendant systems vary by maker and their accidentals are
+half-covered holes, which a filled/open diagram cannot draw at all.
 
 Fingerings are composed from named constants (`HOME`, `LH4`, `THUMBS`) rather
 than typed out twenty-one times, so the table can be read against a published
@@ -175,9 +229,11 @@ npm test        # vitest, mounts every page as a plain Vue component
 npm run typecheck
 ```
 
-Covers the fingering table, the storage layer's seeding, autosave, and
-export/import round trip, and a mount of every screen — the density control's
-paging, the naturals filter, and the picker appending into the focused phrase.
+Covers the fingering table against a second transcription, the instrument model
+and its derived helpers, the v1 → v2 migration, the typed-note parser, the
+share-link round trip, the undo stack, the storage layer's seeding, autosave and
+export/import, and a mount of every screen — paging, the naturals filter, typed
+entry, phrase status, reverse lookup, the drill and a shared link.
 
 ## Tech Stack
 
@@ -208,10 +264,10 @@ npm start       # serve that build locally
 
 ## Scope
 
-Alto C 12-hole only. The data model does not anticipate 6-hole, 4-hole, bass, or
-soprano instruments.
+Deliberately absent: **audio playback and pitch synthesis**, and **microphone
+input, pitch detection or grading**. Nothing here makes a sound or listens for
+one; the instrument does that.
 
-Deliberately absent: rhythm, note duration, and tempo (notes are an ordered list,
-nothing more), audio playback, microphone input or pitch grading, staff notation,
-accounts, and any kind of sync. The target is a desktop screen sat next to the
-player; it degrades on a phone rather than designing for one.
+Also absent: tempo and meter. Notes carry an optional value and there are
+rests, but there are no bar lines, no time signature and no metronome — the
+auto-turn timer paces pages, not beats. And no accounts, no server, no sync.

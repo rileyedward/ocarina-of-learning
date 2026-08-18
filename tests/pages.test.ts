@@ -13,10 +13,13 @@ import { RouterView, createRouter, createWebHistory } from 'vue-router'
  */
 const ROUTES = [
   { path: '/', component: () => import('@/pages/index.vue') },
-  { path: '/reference', component: () => import('@/pages/reference.vue') },
+  { path: '/reference', component: () => import('@/pages/reference/index.vue') },
+  { path: '/reference/lookup', component: () => import('@/pages/reference/lookup.vue') },
+  { path: '/drill', component: () => import('@/pages/drill.vue') },
   { path: '/scales', component: () => import('@/pages/scales/index.vue') },
   { path: '/scales/:id', component: () => import('@/pages/scales/[id].vue') },
   { path: '/song/new', component: () => import('@/pages/song/new.vue') },
+  { path: '/song/shared', component: () => import('@/pages/song/shared.vue') },
   { path: '/song/:id', component: () => import('@/pages/song/[id]/index.vue') },
   { path: '/song/:id/edit', component: () => import('@/pages/song/[id]/edit.vue') },
 ]
@@ -61,8 +64,35 @@ describe('screens render', () => {
 
   it('naturals filter drops the accidentals', async () => {
     const wrapper = await visit('/reference')
-    await wrapper.findAll('button')[1].trigger('click')
+    const naturals = wrapper.findAll('button').find((b) => b.text() === 'Naturals only')
+    await naturals?.trigger('click')
     expect(wrapper.findAll('figure')).toHaveLength(13)
+  })
+
+  it('reference finds a note by name', async () => {
+    const wrapper = await visit('/reference')
+    await wrapper.find('input[type="search"]').setValue('Eb')
+    expect(wrapper.findAll('figure')).toHaveLength(2)
+  })
+
+  it('reverse lookup names the note a set of holes makes', async () => {
+    const wrapper = await visit('/reference/lookup')
+    expect(wrapper.text()).toContain('What note is this?')
+
+    // Every hole covered is the bottom note.
+    const coverAll = wrapper.findAll('button').find((b) => b.text() === 'Cover all')
+    await coverAll?.trigger('click')
+    expect(wrapper.findAll('figure')).toHaveLength(1)
+    expect(wrapper.find('figure').text()).toContain('A')
+  })
+
+  it('drill hides the answer until it is asked for', async () => {
+    const wrapper = await visit('/drill')
+    expect(wrapper.text()).toContain('?')
+
+    const reveal = wrapper.findAll('button').find((b) => b.text() === 'Reveal')
+    await reveal?.trigger('click')
+    expect(wrapper.text()).not.toContain('?')
   })
 
   it('scales list and detail render every note at once', async () => {
@@ -73,16 +103,66 @@ describe('screens render', () => {
     expect(detail.findAll('figure')).toHaveLength(21)
   })
 
+  it('practice view marks a phrase learned and can hide it', async () => {
+    const wrapper = await visit('/song/seed-twinkle')
+
+    const status = wrapper.findAll('button').find((b) => b.text() === 'New')
+    await status?.trigger('click')
+    await status?.trigger('click')
+
+    const { findSong } = await import('@/composables/useLibrary')
+    expect(findSong('seed-twinkle')?.phrases[0].status).toBe('learned')
+  })
+
+  it('typed shorthand fills the focused phrase', async () => {
+    const wrapper = await visit('/song/seed-oot-3/edit')
+
+    const typeToggle = wrapper.findAll('button').find((b) => b.text() === 'Type notes')
+    await typeToggle?.trigger('click')
+    await wrapper.find('#note-text').setValue('c d e/8')
+
+    const append = wrapper.findAll('button').find((b) => b.text() === 'Append')
+    await append?.trigger('click')
+
+    const { findSong } = await import('@/composables/useLibrary')
+    expect(findSong('seed-oot-3')?.phrases[0].notes).toEqual([
+      { note: 'C5' },
+      { note: 'D5' },
+      { note: 'E5', dur: 8 },
+    ])
+  })
+
+  it('a shared link opens as a preview rather than saving itself', async () => {
+    const { seq } = await import('@/utils/noteText')
+    const { encodeSong } = await import('@/utils/shareLink')
+    const payload = await encodeSong({
+      id: 'from-a-friend',
+      title: 'Ballad of the Wind Fish',
+      phrases: [{ id: 'p1', notes: seq('C5 D5 E5') }],
+      createdAt: '2026-08-01T00:00:00.000Z',
+      updatedAt: '2026-08-01T00:00:00.000Z',
+    })
+    const wrapper = await visit(`/song/shared#s=${payload}`)
+    await vi.waitFor(() => expect(wrapper.text()).toContain('Ballad of the Wind Fish'))
+    expect(wrapper.text()).toContain('not saved yet')
+
+    const { library } = (await import('@/composables/useLibrary')).useLibrary()
+    expect(library.songs.map((s) => s.id)).not.toContain('from-a-friend')
+  })
+
   it('practice view paginates phrases by density', async () => {
     const wrapper = await visit('/song/seed-twinkle')
     expect(wrapper.text()).toContain('Twinkle Twinkle Little Star')
     // Default density is 2 of 6 phrases.
     expect(wrapper.text()).toContain('Page 1 of 3')
-    expect(wrapper.findAll('figure')).toHaveLength(14)
+    expect(wrapper.findAll('.screen-only figure')).toHaveLength(14)
 
     const allButton = wrapper.findAll('button').find((b) => b.text() === 'All')
     await allButton?.trigger('click')
-    expect(wrapper.findAll('figure')).toHaveLength(42)
+    expect(wrapper.findAll('.screen-only figure')).toHaveLength(42)
+
+    // The print sheet is the whole song regardless of what the screen shows.
+    expect(wrapper.findAll('.print-only figure')).toHaveLength(42)
   })
 
   it('practice view scales cards by cards-per-row and remembers it', async () => {
@@ -111,7 +191,7 @@ describe('screens render', () => {
     await picker[0].trigger('click')
 
     const { findSong } = await import('@/composables/useLibrary')
-    expect(findSong('seed-oot-1')?.phrases[0].notes).toEqual(['A4'])
+    expect(findSong('seed-oot-1')?.phrases[0].notes).toEqual([{ note: 'A4' }])
   })
 
   it('adding a phrase focuses it so the picker keeps filling', async () => {
@@ -124,7 +204,7 @@ describe('screens render', () => {
     expect(song?.phrases).toHaveLength(2)
 
     await wrapper.findAll('[title^="C5"]')[0].trigger('click')
-    expect(song?.phrases[1].notes).toEqual(['C5'])
+    expect(song?.phrases[1].notes).toEqual([{ note: 'C5' }])
     expect(song?.phrases[0].notes).toEqual([])
   })
 })

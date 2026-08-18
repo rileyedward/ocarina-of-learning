@@ -1,3 +1,4 @@
+import { seq } from '@/utils/noteText'
 import type { Song } from '@/types'
 
 const SEEDED_AT = '2026-08-12T00:00:00.000Z'
@@ -29,18 +30,21 @@ const ootShells: Song[] = OOT_TITLES.map((title, i) =>
   ]),
 )
 
-/** Public domain, sits comfortably in range, phrases naturally. */
+/**
+ * Public domain, sits comfortably in range, phrases naturally — and carries
+ * note values, so a fresh install has something to show in staff view.
+ */
 const twinkle: Song = song(
   'seed-twinkle',
   'Twinkle Twinkle Little Star',
   'Traditional · public domain · a gentle first run',
   [
-    { id: 'seed-twinkle-p1', label: 'twinkle twinkle little star', notes: ['C5', 'C5', 'G5', 'G5', 'A5', 'A5', 'G5'] },
-    { id: 'seed-twinkle-p2', label: 'how I wonder what you are', notes: ['F5', 'F5', 'E5', 'E5', 'D5', 'D5', 'C5'] },
-    { id: 'seed-twinkle-p3', label: 'up above the world so high', notes: ['G5', 'G5', 'F5', 'F5', 'E5', 'E5', 'D5'] },
-    { id: 'seed-twinkle-p4', label: 'like a diamond in the sky', notes: ['G5', 'G5', 'F5', 'F5', 'E5', 'E5', 'D5'] },
-    { id: 'seed-twinkle-p5', label: 'twinkle twinkle little star', notes: ['C5', 'C5', 'G5', 'G5', 'A5', 'A5', 'G5'] },
-    { id: 'seed-twinkle-p6', label: 'how I wonder what you are', notes: ['F5', 'F5', 'E5', 'E5', 'D5', 'D5', 'C5'] },
+    { id: 'seed-twinkle-p1', label: 'twinkle twinkle little star', notes: seq('C5/4 C5/4 G5/4 G5/4 A5/4 A5/4 G5/2') },
+    { id: 'seed-twinkle-p2', label: 'how I wonder what you are', notes: seq('F5/4 F5/4 E5/4 E5/4 D5/4 D5/4 C5/2') },
+    { id: 'seed-twinkle-p3', label: 'up above the world so high', notes: seq('G5/4 G5/4 F5/4 F5/4 E5/4 E5/4 D5/2') },
+    { id: 'seed-twinkle-p4', label: 'like a diamond in the sky', notes: seq('G5/4 G5/4 F5/4 F5/4 E5/4 E5/4 D5/2') },
+    { id: 'seed-twinkle-p5', label: 'twinkle twinkle little star', notes: seq('C5/4 C5/4 G5/4 G5/4 A5/4 A5/4 G5/2') },
+    { id: 'seed-twinkle-p6', label: 'how I wonder what you are', notes: seq('F5/4 F5/4 E5/4 E5/4 D5/4 D5/4 C5/2') },
   ],
 )
 

@@ -168,7 +168,15 @@
   }
 }
 
-/* The reference chart should print well on white paper. */
+/*
+ * Two views of a song: the screen turns pages, paper does not. `print-only`
+ * blocks are the whole-song version, and they exist nowhere else.
+ */
+.print-only {
+  display: none;
+}
+
+/* The reference chart and a song sheet should both print well on white paper. */
 @media print {
   /* Repaint the palette for paper. Diagrams consume these vars, so they follow. */
   :root {
@@ -188,8 +196,18 @@
     color: #000;
   }
 
-  .print-hide {
+  .print-hide,
+  .screen-only {
     display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Ink is expensive and the body fill is decoration, not information. */
+  .fingering-diagram .ocarina-body {
+    fill: #f4f4f0;
   }
 
   .print-surface {

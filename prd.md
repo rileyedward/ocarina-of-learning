@@ -24,15 +24,24 @@ These are **out of scope for v1**. Do not build them, do not scaffold for them.
 
 | Not building | Why |
 |---|---|
-| Rhythm, note duration, tempo, time signatures | Deliberately excluded. Notes are an ordered list, nothing more. |
-| Audio playback / pitch synthesis | User explicitly declined. Visual only. |
-| Microphone input, pitch detection, grading | Out of scope. |
-| Staff notation rendering | Letter names only. |
-| Accounts, auth, sync, multi-user | Single local user. |
+| Audio playback / pitch synthesis | User explicitly declined, twice. Visual only. Nothing in this app makes a sound. |
+| Microphone input, pitch detection, grading | Out of scope, reaffirmed. Nothing listens. |
+| Tempo, meter, bar lines, time signatures, metronome | Note values and rests exist; a rhythmic *structure* does not. The auto-turn timer paces pages, not beats. |
+| Accounts, auth, sync, multi-user | Single local user. Sharing is a link carrying the song, not a service. |
 | A server, an API, or a database | Browser-only. |
-| Notes/journal/"learnings" features | Explicitly cut from v1. |
-| Other ocarina types (6-hole, 4-hole, bass, soprano) | Alto C only. Do not generalize the data model for other instruments. |
-| Mobile / responsive-down-to-phone | Target is a desktop screen sat next to the player. Degrade gracefully, don't design for it. |
+| A practice journal | Phrase status is one enum on a phrase, not a log. |
+
+### 1.2 In scope since v1
+
+These were v1 non-goals and are now built. They are listed here so the reversal
+is deliberate and visible rather than implied by the code.
+
+| Now building | Shape |
+|---|---|
+| Note duration and rests | Optional `dur` and `dotted` on a phrase note; `note: null` is a rest. Library v2, migrated from v1 on read. |
+| Staff notation | Hand-drawn SVG treble staff, no bar lines and no meter. A view toggle, never the only view. |
+| Other ocarina types | 12-hole alto, soprano and bass C; 6-hole and 4-hole pendants. Instrument geometry and fingerings live together in `app/data/instruments.ts`. The pendant tables are community transcriptions and are marked unverified in the UI. |
+| Mobile | Already reversed before this round: the practice and editor screens are built for a phone held sideways as well as a desktop. |
 
 ---
 
