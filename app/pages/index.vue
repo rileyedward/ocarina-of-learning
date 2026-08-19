@@ -13,6 +13,8 @@ import {
   exportMeta,
   noteCount,
   previewImport,
+  resetToSeedLibrary,
+  seedResetPreview,
   songsFiltered,
   useLibrary,
 } from '@/composables/useLibrary'
@@ -52,6 +54,7 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const pendingImport = ref<{ name: string; preview: ImportPreview } | null>(null)
 const importMessage = ref('')
 const copied = ref(false)
+const pendingReset = ref<{ restoring: number; losing: string[] } | null>(null)
 const sharedId = ref<string | null>(null)
 
 function onNewSong() {
@@ -84,6 +87,22 @@ function runImport(mode: ImportMode) {
   if (!pending) return
   importMessage.value = applyImport(pending.preview.library, mode).message
   pendingImport.value = null
+}
+
+/**
+ * Restoring the shipped library is destructive and rarely wanted, so it sits
+ * behind the footer's small print and behind a confirmation that names what
+ * would be lost.
+ */
+function askReset() {
+  importMessage.value = ''
+  pendingImport.value = null
+  pendingReset.value = seedResetPreview()
+}
+
+function confirmReset() {
+  importMessage.value = resetToSeedLibrary().message
+  pendingReset.value = null
 }
 
 async function onCopy() {
@@ -265,6 +284,13 @@ const exportNag = computed(() => {
           class="hidden"
           @change="onFilePicked"
         />
+        <button
+          type="button"
+          class="ml-auto px-2 py-1 text-xs text-parchment-dim/60 hover:text-parchment"
+          @click="askReset"
+        >
+          Reset to default library
+        </button>
       </div>
 
       <p v-if="exportNag" class="mt-2 text-gold/80">{{ exportNag }}</p>
@@ -292,6 +318,31 @@ const exportNag = computed(() => {
             Replace library
           </button>
           <button type="button" class="px-2 py-1 hover:text-parchment" @click="pendingImport = null">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div
+        v-if="pendingReset"
+        class="mt-3 flex flex-col gap-2 rounded-sm border border-white/10 px-3 py-2"
+      >
+        <div class="text-parchment">Reset to the default library?</div>
+        <p class="text-xs">
+          Restores the {{ pendingReset.restoring }} songs this app ships with, at the version
+          they ship at — any edits you made to them are overwritten.
+          <template v-if="pendingReset.losing.length">
+            These {{ pendingReset.losing.length }} would be deleted:
+            <span class="text-gold">{{ pendingReset.losing.join(', ') }}</span
+            >. Export first if you want them back.
+          </template>
+          <template v-else>Nothing of your own would be lost.</template>
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" class="px-2 py-1 text-red-300 hover:text-red-200" @click="confirmReset">
+            Reset library
+          </button>
+          <button type="button" class="px-2 py-1 hover:text-parchment" @click="pendingReset = null">
             Cancel
           </button>
         </div>

@@ -210,3 +210,49 @@ describe('export nagging', () => {
     expect(exportMeta.lastExportAt).not.toBeNull()
   })
 })
+
+describe('the shipped seed library', () => {
+  it('is data/ocarina-library.json, loaded on a first run', async () => {
+    const shipped = (await import('../data/ocarina-library.json')).default
+    const { useLibrary } = await loadStore()
+    const { library } = useLibrary()
+
+    expect(library.songs.map((s) => s.id)).toEqual(shipped.songs.map((s) => s.id))
+    expect(library.songs.map((s) => s.title)).toContain('Song of Storms')
+    // Its songs arrive with their notes, not as empty shells.
+    expect(library.songs.every((s) => s.phrases.some((p) => p.notes.length > 0))).toBe(true)
+  })
+
+  it('tops an older install up with songs it has never held, then leaves it alone', async () => {
+    const existing: Library = { version: 2, songs: [], scales: [] }
+    localStorage.setItem(LIBRARY_KEY, JSON.stringify(existing))
+
+    const first = await loadStore()
+    const shipped = (await import('../data/ocarina-library.json')).default
+    expect(first.useLibrary().library.songs).toHaveLength(shipped.songs.length)
+
+    // Deleting a topped-up song sticks: the top-up runs once per seed revision.
+    first.deleteSong(shipped.songs[0].id)
+    await flush()
+
+    vi.resetModules()
+    const second = await loadStore()
+    expect(second.useLibrary().library.songs.map((s) => s.id)).not.toContain(shipped.songs[0].id)
+  })
+
+  it('resets back to the shipped library, dropping what the user added', async () => {
+    const { useLibrary, createSong, resetToSeedLibrary, seedResetPreview } = await loadStore()
+    const { library } = useLibrary()
+
+    createSong('Mine alone')
+    library.songs[0].title = 'Renamed a shipped song'
+
+    expect(seedResetPreview().losing).toEqual(['Mine alone'])
+
+    const result = resetToSeedLibrary()
+    expect(result.ok).toBe(true)
+    expect(library.songs.map((s) => s.title)).not.toContain('Mine alone')
+    expect(library.songs.map((s) => s.title)).not.toContain('Renamed a shipped song')
+    expect(library.scales.map((s) => s.id)).toContain('c-major')
+  })
+})

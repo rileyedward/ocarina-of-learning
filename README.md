@@ -104,9 +104,10 @@ service to start.
     http://localhost:3000
     ```
 
-On first run the library seeds itself: one fully populated public-domain song
-(*Twinkle Twinkle Little Star*) and six titled shells for the Ocarina of Time
-melodies, ready for you to enter from whatever arrangement you are working from.
+On first run the library seeds itself from `data/ocarina-library.json` — an
+export of the songs already entered, notes and all, so a fresh browser opens
+with the same library. The footer's *Reset to default library* puts an install
+back to exactly that file.
 
 ## Usage
 
@@ -175,10 +176,16 @@ implies they are on the front.
 ## Data
 
 The library lives in `localStorage` under `ocarina.library.v1` — schema version
-2, same key — and is seeded on first run from `app/data/`. A version 1 payload
-is read, upcast (bare note strings become `{ note }` objects) and copied aside
-to `ocarina.library.v1.backup` before anything writes over it. Seeding is idempotent — an existing library is used
-as-is and never merged into or overwritten.
+2, same key — and is seeded on first run from `data/ocarina-library.json`, the
+file the Export button writes. Updating what ships is: drop a newer export in
+that file and bump `SEED_REV` in `app/composables/useLibrary.ts`. A version 1
+payload is read, upcast (bare note strings become `{ note }` objects) and copied
+aside to `ocarina.library.v1.backup` before anything writes over it.
+
+Seeding never overwrites edits. An existing library is used as-is, with one
+exception: once per `SEED_REV`, seed songs the install has never held are
+appended, so an old install picks up new songs while a song deleted after that
+stays deleted. `ocarina.seed.rev` records the revision already applied.
 
 Because that is one cleared cache away from gone:
 

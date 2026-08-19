@@ -7,6 +7,8 @@ export const LIBRARY_KEY = 'ocarina.library.v1'
 export const LIBRARY_V1_BACKUP_KEY = 'ocarina.library.v1.backup'
 export const PREFS_KEY = 'ocarina.prefs.v1'
 export const EXPORT_META_KEY = 'ocarina.export.meta'
+/** Which revision of the shipped seed library this install has already seen. */
+export const SEED_REV_KEY = 'ocarina.seed.rev'
 export const densityKey = (songId: string) => `ocarina.density.${songId}`
 export const colsKey = (songId: string) => `ocarina.cols.${songId}`
 

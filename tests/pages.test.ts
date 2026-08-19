@@ -2,6 +2,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { RouterView, createRouter, createWebHistory } from 'vue-router'
+import { installFixtureLibrary } from './fixtures/seedLibrary'
 
 /**
  * Smoke tests: mount every screen through a real router. Templates are only
@@ -46,10 +47,12 @@ beforeEach(() => {
   localStorage.clear()
   document.body.innerHTML = ''
   vi.resetModules()
+  // Screens are tested against a fixed library, not the shipped export.
+  installFixtureLibrary()
 })
 
 describe('screens render', () => {
-  it('library lists the seeded songs', async () => {
+  it('library lists the stored songs', async () => {
     const wrapper = await visit('/')
     expect(wrapper.text()).toContain('Twinkle Twinkle Little Star')
     expect(wrapper.text()).toContain('Song of Storms')

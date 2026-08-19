@@ -1,0 +1,1795 @@
+{
+  "version": 2,
+  "songs": [
+    {
+      "id": "1063c6c3-93e9-45c5-9e96-789dfbe25577",
+      "title": "Zelda's Lullaby",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "014f95af-343e-4c07-a102-02e0cb6ca327",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "b2431376-240e-4d9b-a78d-a5c9070e21c2",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "b73ccfdd-ca05-422f-afbc-fb7c248cc086",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "9bb1dba1-28b3-475a-ab4b-3c577e74fcf5",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "e243053b-c7c8-4be5-af66-de6c18fd5a8f",
+          "notes": [
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            }
+          ]
+        },
+        {
+          "id": "df9b758b-2161-4af9-adba-4fceb3f9aa12",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A4"
+            }
+          ]
+        },
+        {
+          "id": "6f2f47da-baf9-48f1-9f4d-2dd4fbbd908c",
+          "notes": [
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "C6"
+            }
+          ]
+        },
+        {
+          "id": "6d3f1717-e873-4b3d-9f76-a19556e2a286",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "14be4f86-c4a9-42e1-8f3a-203df3f57085",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T15:00:56.802Z",
+      "updatedAt": "2026-08-19T15:09:32.061Z"
+    },
+    {
+      "id": "ec646d39-7c34-4641-acb6-5d7e12ad54cc",
+      "title": "Song of Storms",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "35da0648-3330-46ea-9c59-69d48950372d",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "7b8aaaf5-a2ce-4368-b6d5-c8d46292ff35",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "2e0e58f3-3dc9-499b-a088-9803b1ba07f7",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "dd513b75-6354-4082-be9d-70f40d9510ba",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "400ca31f-584b-479a-801e-9e0e19476876",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D6"
+            }
+          ]
+        },
+        {
+          "id": "9cecc22c-2d49-4e9e-bf16-e6b2929bd29a",
+          "notes": [
+            {
+              "note": "E6"
+            },
+            {
+              "note": "F6"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "F6"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            }
+          ]
+        },
+        {
+          "id": "c47875e6-98b7-43f3-951b-ccc92fc2cdbc",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "E5"
+            }
+          ]
+        },
+        {
+          "id": "f0a8f6ca-7aca-4cb2-a554-63fe5e676d98",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D6"
+            }
+          ]
+        },
+        {
+          "id": "b748e2e5-aa75-445a-83de-fffc39cde36a",
+          "notes": [
+            {
+              "note": "E6"
+            },
+            {
+              "note": "F6"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "F6"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            }
+          ]
+        },
+        {
+          "id": "0828ac76-83a3-4616-bd92-78a27a428a6d",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T15:09:46.956Z",
+      "updatedAt": "2026-08-19T15:17:38.546Z"
+    },
+    {
+      "id": "f2300172-cc58-4646-965e-7806393058b8",
+      "title": "Epona's Song",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "ea0c6c7e-e12a-4bcf-a6da-a4f90ea80fc4",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "7f34b08e-92f3-46fd-b117-c20f82e7ffa6",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "Eb5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "d015151b-e970-4791-9017-7c1c24bb9bdb",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "35a92217-e465-4736-b9ae-b28d93fd4bd3",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "Eb5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            }
+          ]
+        },
+        {
+          "id": "7f5676ac-aa29-4568-a5f6-615f748d0186",
+          "notes": [
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Bb5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "Bb5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "a092e392-d29b-4607-960f-28f0514b47b0",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "9c2fd932-7e89-4191-a5e3-231fd813d6c4",
+          "notes": [
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Bb5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "Bb5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "7ee74d98-ec3b-4aec-9670-7298fcb50a6f",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "Ab5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "620e45a3-f80f-4de2-81e1-8f053fbf9c64",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "0e6ccd39-6938-4c74-8ddb-76abfc4f7c5c",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "Eb5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "cd44e8b4-cfb8-46eb-a418-687cd1e13b90",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "152c194d-92a2-4f1b-8a07-8bddabc17547",
+          "notes": [
+            {
+              "note": "E5"
+            },
+            {
+              "note": "Eb5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T15:21:30.008Z",
+      "updatedAt": "2026-08-19T15:41:40.602Z"
+    },
+    {
+      "id": "dc03d638-76c8-4cc2-bc40-06b55f39300a",
+      "title": "Song of Time",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "a699a297-e770-4ad0-9913-3a9225cb7c15",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "4547ca92-213c-44f8-a6d1-6edb023b8478",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "f765fe2f-d5ae-4a2a-8acb-83a35c222cf9",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T15:42:30.372Z",
+      "updatedAt": "2026-08-19T15:44:07.744Z"
+    },
+    {
+      "id": "0e659782-7aaf-4046-bc02-4ece99956461",
+      "title": "Ilia's Theme",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "7bfed2a0-4d38-411c-bdf1-7f74a8558dcc",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "f1ec4871-09eb-4bd1-ae88-b6870c62666c",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            }
+          ]
+        },
+        {
+          "id": "70261531-a0d5-4a33-bbf2-101966aac7e9",
+          "notes": [
+            {
+              "note": "B4"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            }
+          ]
+        },
+        {
+          "id": "16dfecb0-9534-4d0b-954d-3915d51ae5a4",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "64ed17fc-f0bc-48d6-81b9-acf3f6867ff2",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "e002fe41-c195-4f5e-8e90-7168382e9364",
+          "notes": [
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            }
+          ]
+        },
+        {
+          "id": "286394b5-620a-4427-9dbc-3911614ff6f5",
+          "notes": [
+            {
+              "note": "B4"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            }
+          ]
+        },
+        {
+          "id": "25986355-8067-46e1-95fe-36ce65a813b3",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T15:46:19.860Z",
+      "updatedAt": "2026-08-19T15:51:07.716Z"
+    },
+    {
+      "id": "a10c79f5-79ea-4ee7-ba22-dd289d8e5417",
+      "title": "Ocarina of Time Title Theme",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "29b2dff0-2425-49ab-afd2-a4f15d59f529",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "af710daf-9c3c-4c54-b1d2-8c4bd9fda615",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "2675d6fa-4a86-4f68-9a4a-30ab3987be57",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "e3db65ca-c12d-4a9b-b641-9757cd95698f",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            }
+          ]
+        },
+        {
+          "id": "9726ab5b-b7f8-429f-8c0b-e2f42df2a4c9",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "83960200-f0a2-4e0d-947b-77dbd2c904d6",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D6"
+            },
+            {
+              "note": "Db6"
+            },
+            {
+              "note": "C6"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "E6"
+            },
+            {
+              "note": "B5"
+            }
+          ]
+        },
+        {
+          "id": "dc446678-e890-4d88-b008-8d2f3df1330a",
+          "notes": [
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "B5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "C6"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T16:03:45.674Z",
+      "updatedAt": "2026-08-19T16:07:47.678Z"
+    }
+  ],
+  "scales": [
+    {
+      "id": "chromatic",
+      "name": "Chromatic (full range)",
+      "notes": [
+        "A4",
+        "Bb4",
+        "B4",
+        "C5",
+        "Db5",
+        "D5",
+        "Eb5",
+        "E5",
+        "F5",
+        "Gb5",
+        "G5",
+        "Ab5",
+        "A5",
+        "Bb5",
+        "B5",
+        "C6",
+        "Db6",
+        "D6",
+        "Eb6",
+        "E6",
+        "F6"
+      ]
+    },
+    {
+      "id": "c-major",
+      "name": "C major",
+      "notes": [
+        "C5",
+        "D5",
+        "E5",
+        "F5",
+        "G5",
+        "A5",
+        "B5",
+        "C6"
+      ]
+    },
+    {
+      "id": "c-major-extended",
+      "name": "C major (extended)",
+      "notes": [
+        "C5",
+        "D5",
+        "E5",
+        "F5",
+        "G5",
+        "A5",
+        "B5",
+        "C6",
+        "D6",
+        "E6",
+        "F6"
+      ]
+    },
+    {
+      "id": "f-major",
+      "name": "F major",
+      "notes": [
+        "F5",
+        "G5",
+        "A5",
+        "Bb5",
+        "C6",
+        "D6",
+        "E6",
+        "F6"
+      ]
+    },
+    {
+      "id": "d-minor",
+      "name": "D minor (natural)",
+      "notes": [
+        "D5",
+        "E5",
+        "F5",
+        "G5",
+        "A5",
+        "Bb5",
+        "C6",
+        "D6"
+      ]
+    },
+    {
+      "id": "a-minor",
+      "name": "A minor (natural)",
+      "notes": [
+        "A4",
+        "B4",
+        "C5",
+        "D5",
+        "E5",
+        "F5",
+        "G5",
+        "A5"
+      ]
+    }
+  ]
+}

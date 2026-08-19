@@ -12,6 +12,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./app', import.meta.url)),
       '~': fileURLToPath(new URL('./app', import.meta.url)),
+      // Nuxt's project-root aliases: the seed library lives in data/.
+      '~~': fileURLToPath(new URL('.', import.meta.url)),
+      '@@': fileURLToPath(new URL('.', import.meta.url)),
     },
   },
   test: {

@@ -1,11 +1,12 @@
 import { reactive, watch } from 'vue'
 import { SEED_SCALES } from '@/data/scales'
-import { SEED_SONGS } from '@/data/songs'
+import { SEED_EXPORT_SCALES, SEED_SONGS } from '@/data/songs'
 import { DEFAULT_INSTRUMENT_ID, getInstrument, playable } from '@/data/instruments'
 import {
   EXPORT_META_KEY,
   LIBRARY_KEY,
   LIBRARY_V1_BACKUP_KEY,
+  SEED_REV_KEY,
   colsKey,
   densityKey,
   isV1Payload,
@@ -22,31 +23,73 @@ const newId = (): string =>
     ? crypto.randomUUID()
     : `id-${Math.random().toString(36).slice(2)}-${Date.now().toString(36)}`
 
+/**
+ * Bump this whenever `data/ocarina-library.json` gains songs that existing
+ * installs should receive. Each install runs the top-up once per revision, so
+ * a song deleted after that stays deleted.
+ */
+const SEED_REV = 1
+
+/** Built-in scales first; anything extra the export carries is appended. */
+const seedScales = (): Scale[] => {
+  const scales = clone(SEED_SCALES)
+  const have = new Set(scales.map((s) => s.id))
+  for (const scale of clone(SEED_EXPORT_SCALES)) {
+    if (!have.has(scale.id)) scales.push(scale)
+  }
+  return scales
+}
+
 const seedLibrary = (): Library => ({
   version: 2,
   songs: clone(SEED_SONGS),
-  scales: clone(SEED_SCALES),
+  scales: seedScales(),
 })
 
+/** Seed songs this library has never held. Existing entries are left alone. */
+function topUpFromSeed(existing: Library): boolean {
+  const have = new Set(existing.songs.map((s) => s.id))
+  const missing = SEED_SONGS.filter((s) => !have.has(s.id))
+  if (missing.length === 0) return false
+  existing.songs.push(...clone(missing))
+  return true
+}
+
+/** True once the freshly loaded library needs writing back straight away. */
+let saveOnBoot = false
+
 /**
- * First run seeds from the static data modules. A library that already exists is
- * used as-is — seeding never merges into or overwrites user edits. An unreadable
- * payload is stashed aside rather than silently discarded, and a v1 payload is
- * copied aside before the first v2 write lands on top of it.
+ * First run seeds from the shipped export. A library that already exists is used
+ * as-is — seeding never overwrites user edits — except for a one-per-revision
+ * top-up that adds seed songs the install has never seen. An unreadable payload
+ * is stashed aside rather than silently discarded, and a v1 payload is copied
+ * aside before the first v2 write lands on top of it.
  */
 function loadLibrary(): Library {
   const raw = readRaw(LIBRARY_KEY)
-  if (raw === null) return seedLibrary()
+  if (raw === null) {
+    saveOnBoot = true
+    writeRaw(SEED_REV_KEY, String(SEED_REV))
+    return seedLibrary()
+  }
 
   if (isV1Payload(raw) && readRaw(LIBRARY_V1_BACKUP_KEY) === null) {
     writeRaw(LIBRARY_V1_BACKUP_KEY, raw)
   }
 
   const parsed = parseLibraryJson(raw)
-  if (parsed) return parsed
+  if (parsed) {
+    if (Number(readRaw(SEED_REV_KEY) ?? 0) < SEED_REV) {
+      saveOnBoot = topUpFromSeed(parsed) || saveOnBoot
+      writeRaw(SEED_REV_KEY, String(SEED_REV))
+    }
+    return parsed
+  }
 
   writeRaw(`ocarina.library.corrupt.${Date.now()}`, raw)
   console.warn('Stored library was unreadable; it has been set aside and reseeded.')
+  saveOnBoot = true
+  writeRaw(SEED_REV_KEY, String(SEED_REV))
   return seedLibrary()
 }
 
@@ -69,8 +112,8 @@ watch(
   { deep: true },
 )
 
-// Persist the seeded library immediately so a first run survives a hard close.
-if (readRaw(LIBRARY_KEY) === null) save()
+// Persist a seeded or topped-up library at once, so it survives a hard close.
+if (saveOnBoot) save()
 
 const nowIso = () => new Date().toISOString()
 
@@ -268,6 +311,29 @@ export async function copyLibraryToClipboard(): Promise<boolean> {
   }
 }
 
+/**
+ * Throw the library away and go back to what the app ships — the songs in
+ * `data/ocarina-library.json`. The escape hatch for an install that has drifted
+ * or been half-deleted; anything the user added on top is gone, so the screen
+ * asking for this confirms first.
+ */
+export function resetToSeedLibrary(): ImportResult {
+  const seed = seedLibrary()
+  library.songs = seed.songs
+  library.scales = seed.scales
+  writeRaw(SEED_REV_KEY, String(SEED_REV))
+  return { ok: true, message: `Reset to the default library: ${seed.songs.length} songs.` }
+}
+
+/** Songs a reset would drop, so the confirmation can name them. */
+export function seedResetPreview(): { restoring: number; losing: string[] } {
+  const seeded = new Set(SEED_SONGS.map((s) => s.id))
+  return {
+    restoring: SEED_SONGS.length,
+    losing: library.songs.filter((s) => !seeded.has(s.id)).map((s) => s.title),
+  }
+}
+
 export type ImportMode = 'replace' | 'merge'
 
 export interface ImportPreview {
@@ -300,7 +366,7 @@ export function previewImport(json: string): ImportPreview | null {
 export function applyImport(parsed: Library, mode: ImportMode): ImportResult {
   if (mode === 'replace') {
     library.songs = parsed.songs
-    library.scales = parsed.scales.length > 0 ? parsed.scales : clone(SEED_SCALES)
+    library.scales = parsed.scales.length > 0 ? parsed.scales : seedScales()
     return { ok: true, message: `Replaced library with ${parsed.songs.length} songs.` }
   }
 
