@@ -1688,6 +1688,299 @@
       "instrument": "alto-c-12",
       "createdAt": "2026-08-19T16:03:45.674Z",
       "updatedAt": "2026-08-19T16:07:47.678Z"
+    },
+    {
+      "id": "4d5cb4e7-1263-4d90-b4d1-3c8b3f974045",
+      "title": "Up - Married Life",
+      "subtitle": "",
+      "phrases": [
+        {
+          "id": "0c2c3e28-5540-4d6f-ba37-d2e3299c8f5e",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "C5"
+            }
+          ]
+        },
+        {
+          "id": "fb717789-8672-4ec3-a0b0-85a9cbce0f38",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "6f790a8e-0687-4904-91d4-d03ee311f67a",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "Bb5"
+            }
+          ]
+        },
+        {
+          "id": "cb0b4657-000f-482e-8b8a-fc32c9281ce3",
+          "notes": [
+            {
+              "note": "A4"
+            },
+            {
+              "note": "Bb4"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            }
+          ]
+        },
+        {
+          "id": "7c9a660a-bbfd-4e7c-a3ef-f20b450f1644",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            }
+          ]
+        },
+        {
+          "id": "0dec12a6-ee5b-46e1-a090-d583ba63f143",
+          "notes": [
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "A5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "D5"
+            }
+          ]
+        },
+        {
+          "id": "4093d0d8-1662-458e-8b23-c32c87124b95",
+          "notes": [
+            {
+              "note": "F5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "F5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "G5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "Bb5"
+            }
+          ]
+        },
+        {
+          "id": "35e75bba-d9a3-4d90-9f69-a9050ed45e28",
+          "notes": [
+            {
+              "note": "A4"
+            },
+            {
+              "note": "Bb4"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "C5"
+            },
+            {
+              "note": "D5"
+            },
+            {
+              "note": "E5"
+            },
+            {
+              "note": "F5"
+            }
+          ]
+        }
+      ],
+      "instrument": "alto-c-12",
+      "createdAt": "2026-08-19T17:20:50.870Z",
+      "updatedAt": "2026-08-19T17:31:22.318Z"
     }
   ],
   "scales": [
