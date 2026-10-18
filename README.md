@@ -1,6 +1,8 @@
 # Ocarina Practice
 
-Fingering charts and phrase-by-phrase practice for the 12-hole alto C ocarina.
+Fingering charts and phrase-by-phrase practice for the ocarina.
+
+> **Status:** Active — in development.
 
 ## Overview
 
@@ -16,8 +18,6 @@ fingering and want to know what it is.
 
 Everything runs in the browser. Nuxt ships it as a client-only SPA — there is
 no backend, no database, and no account.
-
-### Why Use Ocarina Practice?
 
 A printed fingering chart answers "where do my fingers go for this note?" but
 not "what do I play next?" — and following a chart while reading a melody means
@@ -70,11 +70,10 @@ works for learning four notes and for running the whole piece.
 
 ### Prerequisites
 
-Ensure you have the following prerequisites installed on your system. You can
-verify each installation by running the provided commands in your terminal.
+Ensure you have the following installed. You can verify each one by running the provided command in your terminal.
 
-1. **Node** (22.19+ or 24.11+) and **NPM** (Node Package Manager) are needed for the
-   application and its dependencies. Check their installations with:
+1. **Node** (22.19+ or 24.11+) and **NPM** run the application and manage its
+   dependencies. Check them by running:
 
     ```bash
     node --version
@@ -100,7 +99,7 @@ service to start.
 
 3. Open it in your browser:
 
-    ```
+    ```text
     http://localhost:3000
     ```
 
@@ -124,7 +123,7 @@ back to exactly that file.
 | `/reference/lookup` | Reverse lookup | Tap holes, find the note |
 | `/drill` | Drill | Flashcards, self-checked |
 
-### Practice keys
+### Practice Keys
 
 | Key | Action |
 |-----|--------|
@@ -143,7 +142,7 @@ as long as the practice screen is open.
 The density control sets how many phrases are visible at once and, with it, how
 large the cards are. The choice is remembered per song.
 
-### Building a song
+### Building a Song
 
 Pick a phrase to make it the focused one — it gets a gold ring and the picker
 says *Adding to:* by name. Then:
@@ -164,7 +163,7 @@ says *Adding to:* by name. Then:
 The picker is fixed to the bottom of the screen, so adding a phrase never
 scrolls it out of reach. Changes save to `localStorage` on a short debounce.
 
-### Reading the diagram
+### Reading the Diagram
 
 Covered holes are filled gold; open holes are outlined. The eight front finger
 holes sit in two mirrored clusters, left hand and right hand, with a wide gap
@@ -278,3 +277,11 @@ one; the instrument does that.
 Also absent: tempo and meter. Notes carry an optional value and there are
 rests, but there are no bar lines, no time signature and no metronome — the
 auto-turn timer paces pages, not beats. And no accounts, no server, no sync.
+
+## Contributing
+
+Bug reports, ideas and pull requests are welcome through [Issues](../../issues). This is a personal project I work on in my spare time, so replies can be slow and not every suggestion will make it in. For anything bigger than a small fix, open an issue first so we can talk it through.
+
+## License
+
+Released under the [MIT License](LICENSE).
