@@ -2,7 +2,7 @@
 
 Fingering charts and phrase-by-phrase practice for the ocarina.
 
-> **Status:** Active — in development.
+> **Status:** Inactive — not in active development. Kept for reference and to run locally.
 
 ## Overview
 
@@ -280,7 +280,7 @@ auto-turn timer paces pages, not beats. And no accounts, no server, no sync.
 
 ## Contributing
 
-Bug reports, ideas and pull requests are welcome through [Issues](../../issues). This is a personal project I work on in my spare time, so replies can be slow and not every suggestion will make it in. For anything bigger than a small fix, open an issue first so we can talk it through.
+This project isn't in active development, so I'm not reviewing issues or pull requests. You're welcome to fork it and take it in your own direction under the license below.
 
 ## License
 
